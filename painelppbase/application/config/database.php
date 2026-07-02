@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => getenv('DB_HOST') ?: 'localhost',
 	'username' => 'apipp',
 	'password' => '13211321',
 	'database' => 'apipp',
