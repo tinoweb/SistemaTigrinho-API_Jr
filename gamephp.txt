@@ -1,0 +1,803 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Game extends CI_Controller {
+
+    private $initial_balance = 0.00; // Balance inicial
+
+    private function getBalance($token){
+        return $this->db->get_where('users', ['aasUserCode' => $token], 1)->row('balance');
+    }
+
+public function index($game)
+{
+    $action = $this->input->post('action');
+    $aasUserCode = $this->input->post('mgckey');
+    $initBal = $this->getBalance($aasUserCode);
+    $symbol = $this->input->post('symbol');
+    $key = $this->sessionKey($aasUserCode);
+      $games = isset($_GET['game']) ? $_GET['game'] : '';
+    switch ($action) {
+        case 'settings':
+            if (empty($game)) {
+                log_message('debug', 'Empty game parameter in settings action');
+                echo 'Error: Game parameter is required for settings.';
+                return; // Exit the case if game is empty
+            }
+
+            // Proceed with settings logic using $game parameter
+            // Example: echo $this->getSettings($game);
+
+          
+
+            echo "nullxgame";
+            break;
+        case 'doInit':
+            $mgckey = $this->mgckey($symbol);
+            $data = array(
+                'code' => $symbol,
+                'key' => $mgckey,
+                'user' => $aasUserCode
+            );
+            $this->db->insert('game_session', $data);
+
+            log_message('debug', '[Game] load Saldo: '. $initBal);
+            $response = $this->sendCurlRequest($this->getPostData('doInit', $mgckey));
+            $updatedResponse = $this->updateBalance($response, $initBal);
+            $this->saveResponse('doInit', $updatedResponse, $symbol, $this->input->post('index'));
+            $this->outputResponse($updatedResponse);
+
+            log_message('debug', '[Game] doInit: '. $updatedResponse);
+            break;
+       case 'doSpin':
+    // Define additional parameters, including PUR
+    $additionalParams = [
+        'pur' => '0'
+    ];
+
+    // Send request with PUR parameter
+    $response = $this->sendCurlRequest($this->getPostData('doSpin', $key, $additionalParams));
+    $updatedResponse = $this->updateBalanceFromSpin($response, $aasUserCode);
+    $this->saveResponse('doSpin', $updatedResponse, $symbol, $this->input->post('index'));
+    $this->outputResponse($updatedResponse);
+    break;
+           case 'doBonus':
+    // Define additional parameters, including PUR
+    $additionalParams = [
+        'ind' => '1'
+    ];
+
+    // Send request with PUR parameter
+    $response = $this->sendCurlRequest($this->getPostData('doBonus', $key, $additionalParams));
+    $updatedResponse = $this->updateBalanceFromSpin($response, $aasUserCode);
+    $this->saveResponse('doBonus', $updatedResponse, $symbol, $this->input->post('index'));
+    $this->outputResponse($updatedResponse);
+    break;
+        case 'doCollect':
+            $response = $this->sendCurlRequest($this->getPostData('doCollect', $key));
+            $currentBalance = $this->getBalance($aasUserCode);
+            $updatedResponse = $this->replaceBalanceInResponse($response, $currentBalance);
+            $this->saveResponse('doCollect', $updatedResponse, $symbol, $this->input->post('index'));
+            $this->outputResponse($updatedResponse);
+            break;
+        default:
+            $response = $this->sendCurlRequest($this->getPostData($action,  $key));
+            $this->outputResponse($response);
+            break;
+    }
+}
+    private function sessionKey($user){
+        return $this->db->get_where('game_session', ['user' => $user], 1)->row('key');
+    }
+
+    private function getSettings($symbol)
+    {
+        $url = base_url().'public/'.$symbol.'/gs2c/saveSettings.do';
+
+        $headers = array(
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0",
+            "Accept: */*",
+            "Content-Type: application/x-www-form-urlencoded",
+            "Origin: https://demogamesfree.pragmaticplay.net",
+            "Referer: https://demogamesfree.pragmaticplay.net/",
+        );
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response;        $url = base_url()."public/js/wurfl.js";
+        $headers = array(
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0",
+            "Accept: */*",
+            "Content-Type: application/x-www-form-urlencoded",
+            "Origin: https://demogamesfree.pragmaticplay.net",
+            "Referer: https://demogamesfree.pragmaticplay.net/",
+        );
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response;
+    }
+
+private function getPostData($action, $mgckey)
+{
+    $postData = array(
+        'action' => $action,
+        'symbol' => $this->input->post('symbol'),
+        'cver' => $this->input->post('cver'),
+        'index' => $this->input->post('index'),
+        'counter' => $this->input->post('counter'),
+        'repeat' => $this->input->post('repeat'),
+        'mgckey' => $mgckey,
+        'ver' => $this->input->get('ver')
+    );
+
+    if ($action === 'doSpin') {
+        $postData['c'] = $this->input->post('c');
+        $postData['l'] = $this->input->post('l');
+        log_message('debug', 'DEBUGANDO L: ' .  $postData['l']);
+        $postData['bl'] = $this->input->post('bl');
+        $postData['pur'] = $this->input->post('pur');
+        $postData['fsp'] = $this->input->post('fsp');
+        $postData['ind'] = $this->input->post('ind');
+    }
+
+    if ($action === 'doBonus') {
+            $postData['ind'] = $this->input->post('ind');
+        // Add any other specific fields required for 'doBonus' here
+    }
+
+    return $postData;
+}
+
+    private function sendCurlRequest($postData)
+    {
+       
+        
+        
+        $symbol = $this->input->post('symbol');
+
+
+switch ($symbol) {
+    case "vs12bbbxmas":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+    case "vs15godsofwar":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+    case "vs20sugarrush":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+        
+            case "vs20sugarrushx":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+    
+            case "vs20muertos":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+        
+            
+            case "vs20midas2":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+    
+       
+            case "vswayspowzeus":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+       
+       
+       case "vs20heartcleo":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+              
+       
+           case "vs20fruitswx":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+              
+            case "vs20clustcol":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+                case "vs20caramsort":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+    
+    
+    
+     case "vs10bbfmission":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+    
+    case "vs20cleocatra":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+           
+            case "vs10bbkir":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+                case "vs10bbkir":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+           
+            case "vs5luckytig":
+        $url = "https://demogamesfree.kaawsdrn.net/gs2c/ge/v4/gameService";
+        break;
+           
+         case "vs5strh":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+            case "vs20wildparty":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+                  case "vs20pistols":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+        
+         case "vs20sugarnudge":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+        
+        case "vs10txbigbass":
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+       
+          
+       
+    // Add more cases as needed
+    default:
+        $url = "https://demogamesfree.pragmaticplay.net/gs2c/ge/v4/gameService";
+        break;
+}
+
+
+
+
+
+        $headers = array(
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0",
+            "Accept: */*",
+            "Content-Type: application/x-www-form-urlencoded",
+            "Origin: https://demogamesfree.pragmaticplay.net",
+            "Referer: https://demogamesfree.pragmaticplay.net/",
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return $response;
+    }
+
+    private function outputResponse($response)
+    {
+        if ($response === false) {
+            echo "Erro ao fazer a solicitação cURL: " . curl_error($ch);
+        } else {
+            echo $response;
+        }
+    }
+
+    private function saveResponse($action, $response, $game, $index)
+    {
+        $data = array(
+            'action' => $action,
+            'response' => $response,
+            'game_code' => $game,
+            'index' => $index
+        );
+        $this->db->insert('game_responses', $data);
+    }
+
+    private function updateBalance($response, $newBalance)
+    {
+        $response = preg_replace('/balance=\d+,\d+\.\d+/', 'balance=' . number_format($newBalance, 2, '.', ''), $response);
+        $response = preg_replace('/balance_cash=\d+,\d+\.\d+/', 'balance_cash=' . number_format($newBalance, 2, '.', ''), $response);
+        return $response;
+    }
+
+private function updateBalanceFromSpin($response, $aasUserCode)
+{
+    // Get current balance
+    $balance = $this->getBalance($aasUserCode);
+    log_message('debug', '[Game] Current Balance: ' . $balance);
+
+         
+         $valordaline = (int)$this->input->post('l');
+         $lines = 0; // Default value for $lines
+
+
+if ($valordaline == 20) {
+    
+    $lines = $valordaline;
+    // Do nothing
+}
+if ($valordaline == 10) {
+    
+    $lines = $valordaline;
+    // Do nothing
+}
+if ($valordaline == 12) {
+    
+    $lines = $valordaline;
+    // Do nothing
+}
+if ($valordaline == 15) {
+    
+    $lines = $valordaline;
+    // Do nothing
+}
+if ($valordaline == 5) {
+    
+    $lines = $valordaline;
+    // Do nothing
+}
+
+if ($valordaline == 25) {
+    
+    $lines = $valordaline;
+    // Do nothing
+}elseif ($valordaline == 40) {
+    $lines = $valordaline / 2;
+}
+
+
+    // Extract bet value and lines
+    $betValue = (float)$this->input->post('c');
+ 
+    $linescleo = (int)$this->input->post('l');
+    
+   
+    $simb = $this->input->post('symbol');
+    
+      $pegapur = (int)$this->input->post('pur');
+      
+              log_message('debug', 'DEBUGANDO VALOR DE PEGAPUR: ' . $pegapur);
+    
+    
+
+
+if ($simb == 'vswayspowzeus') {
+    $linesb = $lines * 150;
+}
+
+
+     
+     
+         elseif ($simb == 'vs20fruitswx') {
+
+    if ($pegapur == 0) {
+       
+        $linesb = $lines * 100; // Adjust multiplier for pur = 0
+    } elseif ($pegapur == 1) {
+       
+        $linesb = $lines * 500; // Adjust multiplier for pur = 1
+    }  else {
+     
+        $linesb = $lines * 100; // Default multiplier
+    }
+} 
+  
+     
+     
+     elseif ($simb == 'vs20sugarrushx') {
+
+    if ($pegapur == 0) {
+       
+        $linesb = $lines * 100; // Adjust multiplier for pur = 0
+    } elseif ($pegapur == 1) {
+       
+        $linesb = $lines * 500; // Adjust multiplier for pur = 1
+    }  else {
+     
+        $linesb = $lines * 100; // Default multiplier
+    }
+} 
+     
+
+elseif ($simb == 'vs15godsofwar') {
+
+    if ($pegapur == 0) {
+       
+        $linesb = $lines * 100; // Adjust multiplier for pur = 0
+    } elseif ($pegapur == 1) {
+       
+        $linesb = $lines * 200; // Adjust multiplier for pur = 1
+    } elseif ($pegapur == 2) {
+        
+        $linesb = $lines * 50; // Adjust multiplier for pur = 2
+    } elseif ($pegapur == 3) {
+     
+        $linesb = $lines * 200; // Adjust multiplier for pur = 3
+    } else {
+     
+        $linesb = $lines * 100; // Default multiplier
+    }
+} 
+
+elseif ($simb == 'vs20pistols') {
+
+    if ($pegapur == 0) {
+       
+        $linesb = $lines * 133; // Adjust multiplier for pur = 0
+    } elseif ($pegapur == 1) {
+       
+        $linesb = $lines * 266; // Adjust multiplier for pur = 1
+    } elseif ($pegapur == 2) {
+        
+        $linesb = $lines * 532; // Adjust multiplier for pur = 2
+    }  else {
+     
+        $linesb = $lines * 100; // Default multiplier
+    }
+} 
+else {
+    $linesb = $lines * 100; // Default multiplier for other symbols
+}
+  
+    
+    
+    $linesp = $lines * 500;
+    $linesbl = $lines * 1.25;
+    
+    // Calculate different bet amounts
+    $betcleo = $betValue * $linescleo;
+    $betAmount = $betValue * $lines;
+    $betbonusbuy = $betValue * $linesb;
+   $betbonux = $betValue * $linesb;
+    $betbonusmar = $betValue * $linesbl;
+    $bet0 = 0.00;
+
+    // Determine which bet amount to use
+    $selectedBetAmount = $bet0; // Default to regular bet amount
+
+    // Initialize variables for storing game results
+    $latestTw = null;
+    $latestFsTotal = null;
+    $latesttb = null;
+    $winAmount = 0.00;
+
+    // Function to extract numeric value from response
+function extractNumericValue($response) {
+    if (preg_match('/\bw=([\d.]+)/', $response, $matches)) {
+        return (float)$matches[1];
+    }
+    return null;
+}
+function extractNumericValue2($response) {
+    if (preg_match('/\btmb_res=([\d.]+)/', $response, $matches)) {
+        return (float)$matches[1];
+    }
+    return null;
+}
+
+    // Function to process response and update balance
+    function processResponse($response, &$storedTw, &$storedFsTotal, &$storedtb, &$balance, &$selectedBetAmount, $betbonusbuy, $betbonusmar, $betAmount,  $betbonux) {
+        // Extract and update stored values (if present)
+       $tw = extractNumericValue($response);
+       
+        $tb = extractNumericValue2($response);
+       
+        $fs_total = extractNumericValue($response, 'fs_total');
+        
+        if ($tw !== null && $fs_total !== null) {
+            $storedTw = $tw;
+            $storedFsTotal = $fs_total;
+        }
+        
+           if ($tb !== null) {
+            $storedtb = $tb;
+          
+        }
+
+  $bet0 = 0.00;
+
+
+
+if (preg_match('/\bfs=1\b(?![0-9])/', $response)) {
+    if (preg_match('/\bpuri=1\b/', $response)) {
+        $balance -= $betbonux;
+        $selectedBetAmount = $betbonux;
+    }
+      elseif (preg_match('/\bpuri=0\b/', $response)) {
+        $balance -= $betbonusbuy;
+        $selectedBetAmount = $betbonusbuy;
+    } 
+     
+      
+    
+    else {
+        // This else block will execute if 'puri=1' is not found in the response
+     $selectedBetAmount -= $bet0;
+             $balance -= $bet0;
+    }
+}
+
+
+
+elseif (strpos($response, 'bl=1') !== false) {
+            $balance -= $betbonusmar;
+            $selectedBetAmount = $betbonusmar;
+        }
+        
+       
+        
+        elseif (strpos($response, 'bw=1') !== false) {
+            $balance -= $betbonusbuy;
+            $selectedBetAmount = $betbonusbuy;
+        } elseif (preg_match('/fs_bought=(\d+)/', $response)) {
+            // No balance deduction for this condition
+            $selectedBetAmount -= $bet0;
+             $balance -= $bet0;
+        }  elseif (strpos($response, 'fsmul=1') !== false) {
+
+            $selectedBetAmount -= $bet0;
+                      $balance -= $bet0;
+    }
+     elseif (preg_match('/fs_total=(\d+)/', $response)) {
+
+            $selectedBetAmount -= $bet0;
+                      $balance -= $bet0;
+    }
+    
+    elseif (strpos($response, 'na=s') !== false) {
+    // Extract the value of w from the response
+    preg_match('/w=([0-9\.]+)/', $response, $matches);
+    $w = isset($matches[1]) ? $matches[1] : '';
+
+    if ($w == '0.00') {
+      
+          $balance -= $betAmount;
+        $selectedBetAmount = $betAmount;
+ 
+      
+    } elseif ($w != '0.00') {
+        
+                    $selectedBetAmount -= $bet0;
+        $balance -= $bet0;
+    }
+}
+    
+    else {
+        // If 'na=s' is not found in the response, update the balance and selected bet amount
+        $balance -= $betAmount;
+        $selectedBetAmount = $betAmount;
+    }
+
+        
+        
+        
+    }
+    
+
+
+    
+      // Check if bet amount exceeds balance
+    if ($balance < $betAmount) {
+        $errorResponse = "balance=0.0&balance_cash=0.0&balance_bonus=0.0&frozen=Saldo+insuficiente+para+a+aposta&msg_code=0&ext_code=SystemError";
+        log_message('DEBUG', '[INFO.cc] Aposta maior que o saldo. ' . $errorResponse);
+        return $errorResponse;
+    }
+
+
+    // Check if bet amount exceeds balance
+    if ($balance < $betAmount) {
+        $errorResponse = "balance=0.0&balance_cash=0.0&balance_bonus=0.0&frozen=Saldo+insuficiente+para+a+aposta&msg_code=0&ext_code=SystemError";
+        log_message('DEBUG', '[INFO.cc] Aposta maior que o saldo. ' . $errorResponse);
+        return $errorResponse;
+    }
+
+    // Process the response
+    processResponse($response, $latestTw, $latestFsTotal, $latesttb, $balance, $selectedBetAmount, $betbonusbuy, $betbonusmar, $betAmount,  $betbonux);
+
+if (strpos($response, 'na=s') !== false) {
+
+        $winAmount = (float)$latestTw;
+    }
+
+
+if (strpos($response, 'na=c') !== false) {
+    $winAmount = (float)$latestTw === 0.00 ? 0.00 : (float)$latestTw;
+}
+  
+  
+  
+  
+  // Codigo RTP
+$user = $this->db->get_where('users', ['aasUserCode' => $aasUserCode], 1)->row();
+
+// Check if the user was found
+if ($user) {
+    $agentfromuser = $user->agentCode;
+
+    // Retrieve the agent record based on agentCode
+    $agent = $this->db->get_where('agents', ['agentCode' => $agentfromuser], 1)->row();
+
+    // Check if the agent was found and retrieve rtpgeral
+    $rtpgeral = $agent ? $agent->rtpgeral : null;
+} else {
+    $rtpgeral = null; // Handle the case where user is not found
+}
+  
+  Log_message('DEBUG', '[INFO.cc] RTPGERAL VALOR ' . $rtpgeral);
+  
+        $rtpcontrol = $rtpgeral * $betAmount;
+    
+        // Check if bet amount exceeds balance
+    if ($winAmount > $rtpcontrol) {
+        $errorResponse = "balance=0.0&balance_cash=0.0&balance_bonus=0.0&frozen=Reinicie+o+jogo+error+generico:002215&msg_code=0&ext_code=SystemError";
+        log_message('DEBUG', '[INFO.cc] Aposta maior que o saldo. ' . $errorResponse);
+        return $errorResponse;
+    }
+     
+
+    // Add win amount to balance
+    $balance += $winAmount;
+
+    // Update balance in database
+    $this->updateUserBalance($aasUserCode, $balance, $selectedBetAmount, $winAmount, $betbonusbuy, $betbonusmar,  $betbonux);
+
+    log_message('DEBUG', '[INFO.cc] Adjusted Balance: ' . $balance);
+
+    // Output latest game results if available
+    if ($latestTw !== null && $latestFsTotal !== null) {
+        log_message('DEBUG', '[INFO.cc] Latest Total Wins (tw): ' . $latestTw);
+        log_message('DEBUG', '[INFO.cc] Latest Free Spins Total (fs_total): ' . $latestFsTotal);
+        log_message('DEBUG', '[INFO.cc] BET AMOUNT: ' . $selectedBetAmount);
+        log_message('DEBUG', '[INFO.cc] BALANCE + WIN: ' . $balance);
+    }
+
+    // Return response with updated balance
+    return $this->replaceBalanceInResponse($response, $balance);
+}
+
+// Updated updateUserBalance method
+private function updateUserBalance($aasUserCode, $balance, $selectedBetAmount, $winAmount, $betbonusbuy, $betbonusmar,  $betbonux)
+{
+    $user = $this->db->get_where('users', ['aasUserCode' => $aasUserCode], 1)->row();
+
+    if ($user->apiType == 1) {
+        $this->db->where('aasUserCode', $aasUserCode);
+        $updata = array(
+            'balance' => $balance
+        );
+        $this->db->update('users', $updata);
+    } else {
+        $this->db->where('aasUserCode', $aasUserCode);
+        $updata = array(
+            'balance' => $balance
+        );
+        $this->db->update('users', $updata);
+
+        $historyInsert = array(
+            'user_code' => $user->userCode,
+            'agent_code' => $user->agentCode,
+            'user_balance' => $this->formatAmount($balance),
+            'user_after_balance' => $this->formatAmount($balance + $winAmount),
+            'provider_code' => 'PRAGMATICPLAY',
+            'currency' => 'BRL',
+            'game_code' => $this->input->post('symbol'),
+            'bet_money' => $this->formatAmount($selectedBetAmount),
+            'win_money' => $this->formatAmount($winAmount),
+            'txn_id' => rand(100000, 999999),
+            'created_at' => date("Y-m-d H:i:s")
+        );
+
+        $this->webhook->transaction($user->agentCode, $user->userCode, $historyInsert);
+        log_message('DEBUG', 'SALDO BALANCE : ' . $this->formatAmount($balance + $selectedBetAmount));
+        log_message('DEBUG', 'SALDO after BALANCE : ' . $this->formatAmount($balance));
+    }
+}
+    private function replaceBalanceInResponse($response, $newBalance)
+    {
+        $formattedBalance = number_format($newBalance, 2, '.', '');
+        $response = preg_replace('/balance=\d{1,3}(?:,\d{3})*\.\d{2}/', 'balance=' . $formattedBalance, $response);
+        $response = preg_replace('/balance_cash=\d{1,3}(?:,\d{3})*\.\d{2}/', 'balance_cash=' . $formattedBalance, $response);
+        return $response;
+    }
+
+    public function promo()
+    {
+        echo '{}';
+    }
+
+    public function wurlf()
+    {
+        $url = base_url()."public/js/wurfl.js";
+        $headers = array(
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0",
+            "Accept: */*",
+            "Content-Type: application/x-www-form-urlencoded",
+            "Origin: https://demogamesfree.pragmaticplay.net",
+            "Referer: https://demogamesfree.pragmaticplay.net/",
+        );
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response;
+    }
+
+    public function mgckey($gameSymbol)
+    {
+        $compactSessionUrl = "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=" . $gameSymbol . "&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=PT&cur=EUR";
+        $headers = array(
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0",
+            "Accept: */*",
+            "Content-Type: application/x-www-form-urlencoded",
+            "Origin: https://demogamesfree.pragmaticplay.net",
+            "Referer: https://demogamesfree.pragmaticplay.net/",
+        );
+
+        $ch = curl_init($compactSessionUrl);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $html = curl_exec($ch);
+        $redirectURL = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+        curl_close($ch);
+
+        if ($html === false) {
+            echo "Erro ao fazer a requisição cURL: " . curl_error($ch);
+        } else {
+            $parsedUrl = parse_url($redirectURL);
+            if (isset($parsedUrl['query'])) {
+                parse_str($parsedUrl['query'], $query);
+                if (isset($query['mgckey'])) {
+                    return $query['mgckey'];
+                } else {
+                    echo "mgckey não encontrado na URL de redirecionamento.";
+                }
+            } else {
+                echo "A URL de redirecionamento não contém parâmetros de consulta.";
+            }
+        }
+    }
+
+    public function stats(){
+        return '{"error":0,"description":"OK"}';
+    }
+    
+    
+  
+
+    private function formatAmount($amount) {
+        return number_format((float)$amount, 2, '.', '');
+    }
+}

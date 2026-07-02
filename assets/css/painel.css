@@ -1,0 +1,81 @@
+/* ===== FUNDO DO PAINEL ===== */
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background-color: #050505;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(106,0,255,0.25) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0,229,255,0.25) 0%, transparent 40%);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* overlay escuro */
+body::before {
+    content:"";
+    position: fixed;
+    inset:0;
+    background: rgba(5,5,15,0.88);
+    z-index:-1;
+}
+
+/* ===== ÁREA ===== */
+.content {
+    max-width: 98%;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+/* ===== BOTÃO ===== */
+.back-button {
+    background: linear-gradient(90deg,#7b00ff,#a100ff);
+    padding: 8px 14px;
+    border-radius: 8px;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    display:inline-block;
+    margin-bottom:15px;
+}
+
+/* ===== CARD TABELA ===== */
+.table-responsive {
+    background: rgba(20,20,35,0.95);
+    border-radius:12px;
+    padding:15px;
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
+    overflow-x:auto;
+}
+
+/* ===== TABELA ===== */
+.agents-table {
+    width:100%;
+    border-collapse:collapse;
+    min-width:1200px;
+}
+
+.agents-table th {
+    background: linear-gradient(90deg,#7b00ff,#a100ff);
+    color:#fff;
+    padding:12px;
+    font-size:13px;
+    text-align:left;
+    white-space:nowrap;
+}
+
+.agents-table td {
+    padding:10px;
+    font-size:13px;
+    color:#ffffff;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    white-space:nowrap;
+}
+
+.agents-table tr:hover {
+    background: rgba(255,255,255,0.04);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width:768px){
+    .agents-table { min-width:900px; }
+}

@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  # BANCO DE DADOS (MYSQL ISOLADO)
+  tigrinho_db:
+    image: mysql:8.0
+    container_name: tigrinho_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_segura
+    volumes:
+      - tigrinho_db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3309:3306" # Exposto em porta alternativa (3309) para evitar conflitos no host
+    networks:
+      - tigrinho_network
+
+  # CACHE E FILAS (REDIS ISOLADO)
+  tigrinho_redis:
+    image: redis:alpine
+    container_name: tigrinho_redis
+    networks:
+      - tigrinho_network
+
+  # API NODE.JS (CONSTRUÍDA A PARTIR DE ./api)
+  tigrinho_api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: tigrinho_api
+    ports:
+      - "3016:3016" # Acesso direto por IP para a API Node
+    environment:
+      - AMBIENTE=production
+      - DB_HOST=tigrinho_db
+      - DB_PORT=3306
+      - DB_USERNAME=api90
+      - DB_PASSWORD=13211321
+      - DB_NAME=api90
+      - DB_USERNAME_PP=apipp
+      - DB_PASSWORD_PP=13211321
+      - DB_NAME_PP=apipp
+      - PORT=3016
+      - REDIS_HOST=tigrinho_redis
+      - REDIS_PORT=6379
+      - API_SECRET=169a01c91744946f7cb356577200b790
+      - DOMINIO_API=api.stellgames.com
+    depends_on:
+      - tigrinho_db
+      - tigrinho_redis
+    networks:
+      - tigrinho_network
+
+  # BACKEND PHP (PHP-FPM COM EXTENSÃO MYSQLI)
+  tigrinho_php:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: tigrinho_php
+    environment:
+      - DB_HOST=tigrinho_db
+      - DB_PORT=3306
+      - DB_USERNAME=api90
+      - DB_PASSWORD=13211321
+      - DB_NAME=api90
+      - DB_USERNAME_PP=apipp
+      - DB_PASSWORD_PP=13211321
+      - DB_NAME_PP=apipp
+    volumes:
+      - .:/var/www/html
+      - ./painelppbase:/var/www/html/pp
+    depends_on:
+      - tigrinho_db
+    networks:
+      - tigrinho_network
+
+  # SERVIDOR WEB PRINCIPAL (NGINX INTEGRADO AO TRAEFIK)
+  tigrinho_nginx:
+    image: nginx:alpine
+    container_name: tigrinho_nginx
+    ports:
+      - "8090:80" # Acesso direto por IP para o site/painel PHP
+    volumes:
+      - .:/var/www/html
+      - ./painelppbase:/var/www/html/pp
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - tigrinho_php
+      - tigrinho_api
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tigrinho_web.rule=Host(`api.stellgames.com`) || Host(`stellgames.com`) || Host(`www.stellgames.com`)"
+      - "traefik.http.routers.tigrinho_web.entrypoints=web"
+      - "traefik.http.services.tigrinho_web.loadbalancer.server.port=80"
+    networks:
+      - tigrinho_network
+      - forapix_network # Conecta-se à rede do Traefik para roteamento externo
+
+networks:
+  tigrinho_network:
+    driver: bridge
+  forapix_network:
+    name: forapixmodelagem_forapix_network
+    external: true
+
+volumes:
+  tigrinho_db_data:

@@ -1,0 +1,659 @@
+[
+    {
+        "name": "vs10bbbonanza",
+        "id": "vs10bbbonanza",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10bbbonanza_2ae16cf5db7cbc39.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs10bbkir",
+        "id": "vs10bbkir",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10bbkir_73e4ffc10f5721bf.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs10bxmasbnza",
+        "id": "vs10bxmasbnza",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10bxmasbnza_b5fa29775cd74f1c.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs10cowgold",
+        "id": "vs10cowgold",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10cowgold_0980b96b897b706d.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs10returndead",
+        "id": "vs10returndead",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10returndead_d5f631e3d4abc609.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs10txbigbass",
+        "id": "vs10txbigbass",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10txbigbass_b14055386a6ebb68.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs10vampwolf",
+        "id": "vs10vampwolf",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10vampwolf_f4a47347fe3d941d.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs12bbb",
+        "id": "vs12bbb",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs12bbb_1a7745c8d0cb6a9d.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs12bbbxmas",
+        "id": "vs12bbbxmas",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs12bbbxmas_40f74418724758b1.jpg",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20bchprty",
+        "id": "vs20bchprty",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20bchprty_276054d34072158e.jpg",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20bonzgold",
+        "id": "vs20bonzgold",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20bonzgold_ff990c77412a9382.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20candvil",
+        "id": "vs20candvil",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20candvil_c0f9218518095563.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20daydead",
+        "id": "vs20daydead",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20daydead_eef1cad320fe0b05.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20doghouse",
+        "id": "vs20doghouse",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20doghouse_d4ca1962cf9829aa.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20egypt",
+        "id": "vs20egypt",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20egypt_0552bd61cd272651.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20fruitsw",
+        "id": "vs20fruitsw",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20fruitsw_c21084fac2815e30.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20olympgate",
+        "id": "vs20olympgate",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20olympgate_62b0ad52dc625ac6.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20pbonanza",
+        "id": "vs20pbonanza",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20pbonanza_a491f4c8f76e88f2.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20sbxmas",
+        "id": "vs20sbxmas",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20sbxmas_f98c4aa57ca190a7.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20schristmas",
+        "id": "vs20schristmas",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20schristmas_60d0a4a069401cd6.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20starlight",
+        "id": "vs20starlight",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20starlight_79d9edd42667664c.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20sugarrush",
+        "id": "vs20sugarrush",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20sugarrush_27e056327f48a801.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Sugar Rush 1000",
+        "id": "vs20sugarrushx",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20sugarrushx_94b772e1325bdb09.jpg",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20tweethouse",
+        "id": "vs20tweethouse",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20tweethouse_77466ce7a47103b6.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20wildboost",
+        "id": "vs20wildboost",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20wildboost_f0a578c7b13614f8.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20wildpix",
+        "id": "vs20wildpix",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20wildpix_1e1c1d375a8964bf.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs25chilli",
+        "id": "vs25chilli",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs25chilli_e0fbfc374e11b81a.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs25gladiator",
+        "id": "vs25gladiator",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs25gladiator_f6670dcc1b797714.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs25pyramid",
+        "id": "vs25pyramid",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs25pyramid_70a5b36bf8a025c7.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs25tigerwar",
+        "id": "vs25tigerwar",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs25tigerwar_891ccb8e691f0c14.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs25wolfgold",
+        "id": "vs25wolfgold",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs25wolfgold_3d7578ede1117e57.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs40pirate",
+        "id": "vs40pirate",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs40pirate_41729bd7a3c0cb06.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs40samurai3",
+        "id": "vs40samurai3",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs40samurai3_555f396a0eaba831.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs40spartaking",
+        "id": "vs40spartaking",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs40spartaking_47afc7f21d469069.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs40wildwest",
+        "id": "vs40wildwest",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs40wildwest_10560008c0391bc0.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs50safariking",
+        "id": "vs50safariking",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs50safariking_6d2d9df242863a65.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs5strh",
+        "id": "vs5strh",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs5strh_06546e47d9871cde.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs5super7",
+        "id": "vs5super7",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs5super7_d2048db5c4ac4de6.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20cleocatra",
+        "id": "vs20cleocatra",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20cleocatra_0e3cb66f9e95901f.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs20fparty2",
+        "id": "vs20fparty2",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20fparty2_29cc9f26be9d52e3.png"
+    },
+    {
+        "name": "vs10madame",
+        "id": "vs10madame",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10madame_9439970baf4392f2.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "vs10eyestorm",
+        "id": "vs10eyestorm",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10eyestorm_043ba33011fb194f.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Extra Juicy",
+        "id": "vs10fruity2",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10fruity2_a3415e8a8b7b89de.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Extra Juicy",
+        "id": "vs20amuleteg",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20amuleteg_4d539a77b6aa1762.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Juicy Fruits",
+        "id": "vs50juicyfr",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs50juicyfr_b0effefa5f9c8da8.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Mustang Gold",
+        "id": "vs25mustang",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs25mustang_a051484ee1197482.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "BUBBLE POP",
+        "id": "vs10bblpop",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10bblpop_83f08d9360994d3d.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Bull Fiesta",
+        "id": "vs25bullfiesta",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs25bullfiesta_59fd5b458c8928d2.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Thor MEGA WAYS",
+        "id": "vswayshammthor",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vswayshammthor_d397ea1a6b332b48.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Zeus X Hades",
+        "id": "vs15godsofwar",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs15godsofwar_5c549f3c601cef29.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Muertos Multiplier",
+        "id": "vs20muertos",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20muertos_05dcc4c421b605d5.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Hands of midas 2",
+        "id": "vs20midas2",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20midas2_2e9eb25654f96af8.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "SWEET KINGDOM",
+        "id": "vs20clustcol",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20clustcol_c62299bbdc10cc80.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "BIG BASS MISSION FISHINNG",
+        "id": "vs10bbfmission",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs10bbfmission_7de255458b574478.jpg",
+        "status": "manutencao"
+    },
+    {
+        "name": "3 BUZZ",
+        "id": "vs20wildparty",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20wildparty_e47585d76c6da247.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "power of merlin",
+        "id": "vswayspowzeus",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vswayspowzeus_96288faedac6045a.jpg",
+        "status": "manutencao"
+    },
+    {
+        "name": "GEMS BONANZA",
+        "id": "vs20goldfever",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20goldfever_adf56f2222df5e8b.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Sweet Bonanza 1000",
+        "id": "vs20fruitswx",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20fruitswx_22ff9a8ae399e942.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "GEMS BONANZA",
+        "id": "vs20heartcleo",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20heartcleo_f3c13eb23aec979e.jpg",
+        "status": "manutencao"
+    },
+    {
+        "name": "Cash Patrol",
+        "id": "vs25copsrobbers",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs25copsrobbers_51ef9d7f24d91538.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Wild west duels",
+        "id": "vs20pistols",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20pistols_40d5e4eac17702bc.jpg",
+        "status": "manutencao"
+    },
+    {
+        "name": "Gates of Olympus 1000",
+        "id": "vs20olympx",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20olympx_8e5b58bd3b2bae25.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Sugar Power Nudge",
+        "id": "vs20sugarnudge",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs20sugarnudge_9ebd1b8ab849bb37.png",
+        "status": "manutencao"
+    },
+    {
+        "name": "Tigrinho sortudo",
+        "id": "vs5luckytig",
+        "vendor": "PP",
+        "image": "\/uploads\/games\/game_vs5luckytig_f64d39e9cc5e4ae1.jpg",
+        "status": "manutencao"
+    },
+    {
+        "name": "Fortune Tiger",
+        "id": 126,
+        "image": "\/uploads\/games\/game_126_24066383177cfefd.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Fortune Ox",
+        "id": 98,
+        "image": "\/uploads\/games\/game_98_ff32226e41c8c881.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Fortune Mouse",
+        "id": 68,
+        "image": "\/uploads\/games\/game_68_13c444294a87a69e.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Fortune Dragon",
+        "id": 1695365,
+        "image": "\/uploads\/games\/game_1695365_3f59b372ef723601.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Fortune Rabbit",
+        "id": 1543462,
+        "image": "\/uploads\/games\/game_1543462_533d4af3eb68d174.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Bikini Paradise",
+        "id": 69,
+        "image": "\/uploads\/games\/game_69_4eaf0149b634261a.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Jungle Delight",
+        "id": 40,
+        "image": "\/uploads\/games\/game_40_30c61c8504f37312.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Double Fortune",
+        "id": 48,
+        "image": "\/uploads\/games\/game_48_eb5197eec05a4a54.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Ganesha Gold",
+        "id": 42,
+        "image": "\/uploads\/games\/game_42_653f1af6dfead452.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Dragon Tiger Luck",
+        "id": 63,
+        "image": "\/uploads\/games\/game_63_406af49f677e1a50.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Cash Mania",
+        "id": 1682240,
+        "image": "\/uploads\/games\/game_1682240_9bf2c303ecd1ea16.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Ultimate Striker",
+        "id": 1489936,
+        "image": "\/uploads\/games\/game_1489936_257240d427f7d29c.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Butterfly Blossom",
+        "id": 125,
+        "image": "\/uploads\/games\/game_125_ba914524ea16bb78.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Lucky Clover Lady",
+        "id": 1601012,
+        "image": "\/uploads\/games\/game_1601012_63c59bcb319f8f2c.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Ninja Raccoon Frenzy",
+        "id": 1529867,
+        "image": "\/uploads\/games\/game_1529867_f65a27ed97e130e8.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Prosperity Fortune Tree",
+        "id": 1312883,
+        "image": "\/uploads\/games\/game_1312883_01444ff0fee206da.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Chicky Run",
+        "id": 1738001,
+        "image": "\/uploads\/games\/game_1738001_7233c9bb8b333495.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Wings of Iguazu",
+        "id": 1747549,
+        "image": "\/uploads\/games\/game_1747549_3d9b63459f37afd3.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Piggy Gold",
+        "id": 39,
+        "image": "\/uploads\/games\/game_39_63b39ad23998008c.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Wild Bandito",
+        "id": 104,
+        "image": "\/uploads\/games\/game_104_4e353508aa33c1bb.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Zombie Outbreak",
+        "id": 1635221,
+        "image": "\/uploads\/games\/game_1635221_191a960d51a0de16.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Majestic Treasures",
+        "id": 95,
+        "image": "\/uploads\/games\/game_95_8849b80e39c1d93f.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Thai River Wonders",
+        "id": 92,
+        "image": "\/uploads\/games\/game_92_300108c16ba38257.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Shaolin Soccer",
+        "id": 67,
+        "image": "\/uploads\/games\/game_67_2a8c9f41ea3a2b6a.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Guardians of Ice & Fire",
+        "id": 91,
+        "image": "\/uploads\/games\/game_91_b4a2d3ae36764636.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Rise of Apollo",
+        "id": 101,
+        "image": "\/uploads\/games\/game_101_dba40de9ccf3266b.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Wild Bounty Showdown",
+        "id": 135,
+        "image": "\/uploads\/games\/game_135_e572042410ad52e5.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Treasures of Aztec",
+        "id": 87,
+        "image": "\/uploads\/games\/game_87_b042bce9b8138c62.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Three Crazy Piggies",
+        "id": 1727711,
+        "image": "\/uploads\/games\/game_1727711_4321a61287f5b039.webp",
+        "vendor": "PG",
+        "status": "ativo"
+    },
+    {
+        "name": "Fortune Snake",
+        "id": 1879752,
+        "image": "\/uploads\/games\/game_1879752_088456819354c025.jpg",
+        "vendor": "PG",
+        "status": "ativo"
+    }
+]

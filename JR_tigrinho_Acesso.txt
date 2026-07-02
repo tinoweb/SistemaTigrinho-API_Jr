@@ -1,0 +1,4 @@
+-----------------------acesso ssh do servidor jrpix-----------------------
+JuniorPix1@2
+ssh root@187.77.33.76
+

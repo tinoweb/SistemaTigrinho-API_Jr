@@ -1,0 +1,38 @@
+# Dependências do Node.js
+node_modules/
+api/node_modules/
+
+# Builds e arquivos compilados
+dist/
+api/dist/
+
+# Configurações de ambiente (arquivos confidenciais)
+.env
+api/.env
+.user.ini
+api/.user.ini
+
+# Logs de erro e execução
+*.log
+api/yarn-error.log
+api/output.log
+
+# Diretórios específicos de IDEs
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Uploads e arquivos de mídia do usuário (gerados em produção)
+uploads/*
+!uploads/.gitkeep
+
+# Arquivos temporários e backups
+*.bak
+*.tmp
+*.zip
+*.tar.gz
+*.rar
