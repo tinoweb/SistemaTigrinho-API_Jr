@@ -49,4 +49,3 @@ if ($loggedAdminId > 0) {
         }
     }
 }
-?>

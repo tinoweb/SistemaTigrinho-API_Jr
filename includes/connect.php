@@ -10,5 +10,3 @@ if (!$link) {
     die("Erro ao conectar ao banco de dados: " . mysqli_connect_error());
 }
 mysqli_query($link, "SET CHARACTER SET utf8");
-?>
-		
