@@ -74,7 +74,11 @@ if(mysqli_stmt_execute($stmt)){
     // ================================================================= //
     
     // Conecta ao banco apipp
-    $link_pp = mysqli_connect("localhost", "apipp", "13211321", "apipp");
+    $db_host = getenv('DB_HOST') ?: 'localhost';
+    $db_user = getenv('DB_USERNAME_PP') ?: 'apipp';
+    $db_pass = getenv('DB_PASSWORD_PP') ?: '13211321';
+    $db_name = getenv('DB_NAME_PP') ?: 'apipp';
+    $link_pp = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
     
     if($link_pp){
         // Verifica se já existe para evitar erro
